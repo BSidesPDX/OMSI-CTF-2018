@@ -14,6 +14,12 @@ This is the development environment for the 2018 OMSI Maker Faire CTF Event. We 
 
 | Challenge Name | Category | Points | Port |
 |----------------|----------|--------|------|
+| bfbo | pwn | 100 | 10001 |
+| | pwn | 200 | |
+| | re | 100 | |
+| | re | 200 | |
+| | web | 100 | |
+| | web | 200 | |
 
 ## Local Deployment
 
