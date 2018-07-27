@@ -1,0 +1,19 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: bfbo
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: bfbo
+      labels:
+        app: bfbo
+    spec:
+      containers:
+        - name: bfbo
+          image: gcr.io/bsidespdx-presents-omsi-ctf/bfbo
+          imagePullPolicy: Always
+          securityContext:
+            privileged: false
+      restartPolicy: Always

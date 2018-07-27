@@ -3,7 +3,7 @@
 
 -- PWNABLES --
 
-100 - bfbo - This challenge will give the player a binary with a vulnerable BO that they will need to use to jump into a function that normally wouldn't be called. This function will read a flag from disk and print it out to the user. This challenge requires the player to simply overflow a buffer, use the correct address of the uncalled func, and glory will be released!
+* 100 - bfbo - This challenge will give the player a binary with a vulnerable BO that they will need to use to jump into a function that normally wouldn't be called. This function will read a flag from disk and print it out to the user. This challenge requires the player to simply overflow a buffer, use the correct address of the uncalled func, and glory will be released!
 200 - bsbo - This challenge will give the player a vulnable binary, along with the source code for it. The goal: use a /bin/sh payload to get to the flag (or any shellcode to read a flag from disk)
 
 -- REVERSE ENGINEERING --

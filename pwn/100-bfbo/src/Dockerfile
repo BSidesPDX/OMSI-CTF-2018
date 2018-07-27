@@ -1,4 +1,4 @@
-FROM ubuntu:xenial
+FROM ubuntu:bionic
 
 # Depens
 run apt-get update
@@ -11,8 +11,6 @@ ADD flag /
 ADD bfbo /opt/bfbo
 ADD bfbo.service /etc/xinetd.d/bfbo
 
-# Make and Run
-run echo "bfbo 1001/tcp" >> /etc/services
-EXPOSE 1001
+EXPOSE 10001
 
 CMD ["xinetd", "-dontfork"]

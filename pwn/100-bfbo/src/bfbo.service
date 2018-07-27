@@ -1,9 +1,12 @@
-service nodes
+service bfbo
 {
+        protocol        = tcp
+        port            = 10001
         disable         = no
         flags           = REUSE
         socket_type     = stream
         wait            = no
         user            = nobody
         server          = /opt/bfbo
+        type            = UNLISTED
 }

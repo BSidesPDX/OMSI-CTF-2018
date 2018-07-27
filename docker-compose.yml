@@ -1,0 +1,9 @@
+# Pwn
+
+bfbo:
+    build: ./pwn/100-bfbo/src
+    ports:
+        - 10001:10001
+    security_opt:
+        - seccomp:unconfined
+

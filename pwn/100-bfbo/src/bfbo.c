@@ -4,12 +4,39 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define disable_buffering(_fd) setvbuf(_fd, NULL, _IONBF, 0)
+
+void disable_buf()
+{
+  disable_buffering(stdout);
+  disable_buffering(stderr);
+}
+
+void printFlag()
+{
+  FILE *flag;
+  char ch;
+
+  flag = fopen("/flag", "r");
+  if (flag == NULL)
+  {
+    printf("Cannot open file\n");
+    exit(0);
+  }
+  ch = fgetc(flag);
+  while (ch != EOF)
+  {
+    printf("%c", ch);
+    ch = fgetc(flag);
+  }
+}
+
 int main()
 {
   char buf[20];
   long val=0x41414141;
-  FILE *flag;
-  char ch;
+
+  disable_buf();
 
   printf("Do you folks like 0xc0ff33?");
   scanf("%24s",&buf);
@@ -19,19 +46,7 @@ int main()
 
   if(val==0xc0ff33)
   {
-    flag = fopen("/flag", "r");
-    if (flag == NULL)
-    {
-      printf("Cannot open file\n");
-      exit(0);
-    }
-    printf("Real 0xc0ff33, from the hills of\n");
-    ch = fgetc(flag);
-    while (ch != EOF)
-    {
-      printf("%c", ch);
-      ch = fgetc(flag);
-    }
+    printFlag();
   }
   else
   {
