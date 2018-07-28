@@ -23,7 +23,7 @@ void main()
 
     shellcode = mmap(NULL, LEN, PROT_READ | PROT_WRITE | PROT_EXEC, MAP_ANONYMOUS | MAP_PRIVATE, 0, 0);
     
-    memset(shellcode, 0xCC, LEN); //memset shellcode with NOPS
+    memset(shellcode, 0xCC, LEN); //memset shellcode with int3 for debug
 
 	printf("Enter a string: \n");
     
