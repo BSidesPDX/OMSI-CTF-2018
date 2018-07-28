@@ -1,0 +1,12 @@
+service bfpl
+{
+        protocol        = tcp
+        port            = 10002
+        disable         = no
+        flags           = REUSE
+        socket_type     = stream
+        wait            = no
+        user            = nobody
+        server          = /opt/bfpl
+        type            = UNLISTED
+}

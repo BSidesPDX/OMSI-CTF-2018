@@ -7,3 +7,9 @@ bfbo:
     security_opt:
         - seccomp:unconfined
 
+bfpl:
+    build: ./pwn/200-bfpl/src
+    ports:
+        - 10002:10002
+    security_opt:
+        - seccomp:unconfined

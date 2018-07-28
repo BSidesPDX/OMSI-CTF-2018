@@ -1,0 +1,19 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: bfpl
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: bfpl
+      labels:
+        app: bfpl
+    spec:
+      containers:
+        - name: bfpl
+          image: gcr.io/bsidespdx-presents-omsi-ctf/bfpl
+          imagePullPolicy: Always
+          securityContext:
+            privileged: false
+      restartPolicy: Always

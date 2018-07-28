@@ -21,6 +21,8 @@ This is the development environment for the 2018 OMSI Maker Faire CTF Event. We 
 | | web | 100 | |
 | | web | 200 | |
 
+All flags are in `/flag`
+
 ## Local Deployment
 
 To locally test, deploy or play challenges with Docker, run the following (Ubuntu)
