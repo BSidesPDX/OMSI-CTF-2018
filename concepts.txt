@@ -8,7 +8,7 @@
 
 -- REVERSE ENGINEERING --
 
-100 - sgnirts - Since this is an intro CTF, this challenge will force the player to use Linux commands to enumerate over a binary. The flag will be included in the binary as a string that can be found usings "strings", but with a twist requring some command line options!
+* 100 - sgnirts - Since this is an intro CTF, this challenge will force the player to use Linux commands to enumerate over a binary. The flag will be included in the binary as a string that can be found usings "strings", but with a twist requring some command line options!
 200 -
 
 --  WEB --
