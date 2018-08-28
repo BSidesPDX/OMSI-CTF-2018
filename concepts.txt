@@ -9,7 +9,7 @@
 -- REVERSE ENGINEERING --
 
 * 100 - sgnirts - Since this is an intro CTF, this challenge will force the player to use Linux commands to enumerate over a binary. The flag will be included in the binary as a string that can be found usings "strings", but with a twist requring some command line options!
-200 -
+200 - sup3rs3ri4l - Force the player to reverse engineer a binary that uses a unique serial number to unlock hidden functionality. If the serial is correct, it will be the flag. This challenge will force the player to open a disassembler, run objdump, among other command line tools and view a small application. 
 
 --  WEB --
 
