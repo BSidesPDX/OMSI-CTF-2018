@@ -1,0 +1,159 @@
+<html>
+<head>
+<title>Side-Channel Security TMI</title>
+<style href='scs.css'></style>
+<style>
+.edge {
+   background-color: #444499;
+   color: #dddddd;
+   font-family: helvetica;
+}
+.nav {
+   vertical-align: top; 
+   min-width: 150px;
+   min-height: 500px;
+   border-right: 4px solid #222244;
+}
+.head {
+   font-size:44px;
+   letter-spacing: 10px;
+   border-bottom: 4px solid #222244;
+}
+.body {
+   color: #111122;
+   background-color: #9999aa;
+   width: 100%;
+   height: 100%;
+   text-align: center;
+   padding: 20px;
+}
+.label {
+   color: #111122;
+   background-color: #9999aa;
+   text-align: right;
+   font-weight: 2;
+   padding: 20px;
+}
+.submit {
+   text-align: right;
+}
+.tiny {
+   text-align: center;
+   color: #dddddd;
+   font-size: 9px;
+   padding-top: 10px;
+}
+a:link {
+   text-decoration: none;
+   color: #dddddd;
+}
+a:hover {
+   text-decoration: none;
+   color: #dddddd;
+}
+a:visited {
+   text-decoration: none;
+   color: #dddddd;
+}
+</style>
+<script>
+function login(){
+var xhr = new XMLHttpRequest();
+xhr.open('POST', '/login');
+xhr.onload = function() {
+    result = document.getElementById('result');
+    if (xhr.status != 200) {
+        result.style.color='#771111';
+    } else {
+        result.style.color='#004400';
+    }
+    result.innerHTML = xhr.responseText;
+};
+xhr.send(new FormData(document.forms[0]));
+}
+
+function signup() {
+    alert("We're not quite ready to accept new sign-ups yet, we're still testing our site with the 'admin' account!");
+}
+
+function noimp() {
+    alert('Still working on this one.');
+}
+
+function about() {
+    document.getElementById('home').style.display = 'none';
+    document.getElementById('about').style.display = '';
+}
+
+function home() {
+    document.getElementById('home').style.display = '';
+    document.getElementById('about').style.display = 'none';
+}
+
+</script>
+<body class='edge'>
+<center>
+<table border=0 cellpadding=15 width=100%>
+<tr><td colspan=2 class='edge head' onclick='home()'>
+<center>
+Side-Channel Security
+</center>
+</td>
+</tr>
+<td class='edge nav'>
+<a href='#' onclick='about()'>About Us<br><br>
+<a href='#' onclick='signup()'>Sign Up</a><br><br>
+<a href='#' onclick='noimp()'>Our API</a><br><br>
+<a href='#' onclick='noimp()'>Investors</a><br><br>
+</td><td class='body'>
+
+<div id='home'>
+<h3>Welcome to Side-Channel Security, Inc.</h3>
+<br><br>
+Please sign-in to continue, or sign up!<br>
+<form>
+<center>
+<table border=0 class='login'>
+<tr><td class='label'>
+Username:</td><td class='in'>
+<input name='username' id='username'></td></tr>
+
+<tr><td class='label'>
+Password:</td><td class='in'>
+<input name='password' type='password' id='password'></td></tr>
+<input name='debug' type='hidden' value='FALSE'>
+<tr>
+<td colspan=2 class='error' id='result'>
+
+</td>
+</tr>
+<tr>
+<td colspan=2 class='submit'><button type=button onclick='login()'>Login</button></td>
+</tr>
+</table>
+</center>
+</form>
+</div>
+
+<div id='about' style='display: none; text-align: left'>
+Here at SCS Inc we believe that by properly eliminating all side-channel attack surfaces we can ensure excellent security. We have hired industry experts to eliminate all of the following from our underlying hardware:
+<ul>
+<li>Cache Attack</li>
+<li>Timing Attack</li>
+<li>Power Attack</li>
+</ul>
+<br><br>
+
+Did you know almost all modern attacks are side-channel attacks? By eliminating all these attacks, even junior developers can write any code and know that it is secure. Furthermore, all our passwords must include at least 12 characters! Even if you could brute force a password each microsecond, brute forcing an a-z and '_' password would take over FOUR THOUSAND YEARS.<br><br>
+
+We are currently <b>hiring</b> a developer to run our algorithm security team to ensure that our algorithms are provably secure!
+
+</div>
+
+
+</td></tr></table>
+</center>
+<div class='tiny'>
+(c) 2018 SCS Inc., This is a CTF challenge. Hack away.
+</body>
+</html>

@@ -13,3 +13,9 @@ bfpl:
         - 10002:10002
     security_opt:
         - seccomp:unconfined
+
+tmi:
+    build: ./web/100-tmi/src
+    ports:
+        - 5000:5000
+

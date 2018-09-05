@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tmi
+  labels:
+    app: tmi
+spec:
+  ports:
+   - port: 5000
+     targetPort: 5000
+  selector:
+    app: tmi
+  type: LoadBalancer

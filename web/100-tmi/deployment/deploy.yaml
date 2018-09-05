@@ -1,0 +1,19 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: tmi
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: tmi
+      labels:
+        app: tmi
+    spec:
+      containers:
+        - name: tmi
+          image: gcr.io/bsidespdx-presents-omsi-ctf/tmi
+          imagePullPolicy: Always
+          securityContext:
+            privileged: false
+      restartPolicy: Always

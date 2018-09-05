@@ -1,0 +1,19 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: buynow
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: buynow
+      labels:
+        app: buynow
+    spec:
+      containers:
+        - name: buynow
+          image: gcr.io/bsidespdx-presents-omsi-ctf/buynow
+          imagePullPolicy: Always
+          securityContext:
+            privileged: false
+      restartPolicy: Always
