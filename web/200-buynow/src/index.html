@@ -1,0 +1,387 @@
+<html>
+<head>
+<title>Buy NOW!</title>
+<style>
+.edge {
+   background: linear-gradient(to bottom, #ffe893 0%,#9c7a00 50%,#765c00 51%,#ffcb0f 100%);
+   color: #222222;
+   font-family: helvetica;
+}
+.nav {
+   vertical-align: top; 
+   min-width: 150px;
+   min-height: 500px;
+   font-size: 30pt;
+   font-weight: bold;
+   text-shadow: 0 0 10px #000000;
+}
+.head {
+   font-size:44px;
+   font-weight: bold;
+   letter-spacing: 10px;
+}
+.main {
+   background-color: #ffe893;
+   width: 100%;
+   height: 100%;
+   padding: 20px;
+}
+.label {
+   text-align: right;
+   font-weight: 2;
+   padding: 20px;
+}
+.submit {
+   text-align: right;
+}
+.tiny {
+   text-align: center;
+   color: #dddddd;
+   font-size: 9px;
+   padding-top: 10px;
+}
+a:link {
+   text-decoration: none;
+   color: #dddddd;
+}
+a:hover {
+   text-decoration: none;
+   color: #dddddd;
+}
+a:visited {
+   text-decoration: none;
+   color: #dddddd;
+}
+</style>
+<script>
+var panels = ['home', 'login', 'login2', 'signup', 'transfer', 'buy']
+function activate(which){
+    for (var i=0; i < panels.length; i++){
+        if (panels[i] != which){
+            document.getElementById(panels[i]).style.display = 'none';
+        } else {
+            document.getElementById(panels[i]).style.display = '';
+        }
+    }
+}
+
+function post(endpoint, data, success, failure){
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', endpoint);
+    xhr.onload = function() {
+        if (xhr.status == 200) {
+            success(xhr);   
+        } else {
+            failure(xhr);
+        }
+    };
+    xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.send(JSON.stringify(data));
+}
+
+function byid(id){
+    return document.getElementById(id);
+}
+
+function do_login(){
+    var data = {'username': byid('username').value,
+                'password': byid('password').value}
+    post('/captcha',
+         data, 
+         function(xhr){
+             captcha = byid('captchaouter');
+             captcha.innerHTML = xhr.responseText;
+             activate('login2');
+         },
+         function(xhr) {
+             alert('login failed');
+         });
+}
+
+function verify(){
+     var vbut = byid('verify')
+     vbut.disabled=true;
+     var data = {'username': byid('username').value,
+                 'password': byid('password').value,
+                 'captcha': byid('captcha').value}
+    post('/login',
+         data, 
+         function(xhr){
+              user = byid('user');
+              balance = byid('balance');
+              data = JSON.parse(xhr.responseText);
+              user.innerHTML = data['username'];
+              balance.innerHTML = data['balance'];
+              activate('home');
+              vbut.disabled=false;
+         },
+         function(xhr) {
+             alert('login failed');
+             vbut.disabled=false;
+         });
+}
+
+function do_signup(){
+    var data = {'username': byid('newusername').value,
+                'password': byid('newpassword').value}
+    post('/signup',
+         data, 
+         function(xhr){
+             alert('New user created! Now log in.');
+             logout();
+             //activate('home');
+         },
+         function(xhr) {
+             alert('Failed creating user. Maybe try another?');
+         });
+}
+
+function do_transfer(){
+    var data = {'to': byid('recipient').value,
+                'amount': byid('amount').value}
+    post('/transfer',
+         data, 
+         function(xhr){
+              user = byid('user');
+              balance = byid('balance');
+              data = JSON.parse(xhr.responseText);
+              user.innerHTML = data['username'];
+              balance.innerHTML = data['balance'];
+              activate('home');
+         },
+         function(xhr) {
+             alert('Transfer failed.');
+         });
+}
+
+function do_buy(what){
+    var data = {'item': what}
+    post('/buy',
+         data, 
+         function(xhr){
+              user = byid('user');
+              balance = byid('balance');
+              purchase = byid('purchase');
+              data = JSON.parse(xhr.responseText);
+              user.innerHTML = data['username'];
+              balance.innerHTML = data['balance'];
+              purchase.innerHTML = data['result'];
+              activate('home');
+         },
+         function(xhr) {
+             alert(xhr.responseText);
+         });
+}
+
+function login(){
+    activate('login');
+}
+
+function logout(){
+    activate('home');
+    user = byid('user');
+    balance = byid('balance');
+    purchase = byid('purchase');
+    document.cookie = 'session=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    user.innerHTML = '[logged out]';
+    balance.innerHTML = '';
+    purchase.innerHTML = '';
+}
+
+function home(){
+    activate('home');
+}
+
+function signup() {
+    activate('signup');
+}
+
+function balance() {
+    activate('balance');
+}
+
+function transfer() {
+    activate('transfer');
+}
+
+function buythings() {
+    activate('buy');
+}
+
+</script>
+<body class='edge' onload='home()'>
+<center>
+<table border=0 cellpadding=15 width=100%>
+<tr><td colspan=2 class='edge head' onclick='home()'>
+<center>
+BUY.... THINGS..... NOW!
+</center>
+</td>
+</tr>
+<td class='edge nav'>
+<table width=100%><tr><td>
+<a href='#' onclick='home()'>Home</a></td><td>
+<a href='#' onclick='signup()'>Sign Up</a></td><td>
+<a href='#' onclick='transfer()'>Transfer Funds</a></td><td>
+<a href='#' onclick='buythings()'>Buy Things</a></td>
+<!--Disable all user view, not secure yet <a href='/directory'>List Users</a></td>!-->
+</tr></table>
+</td>
+</tr>
+<tr>
+<td class='main'>
+
+<div id='home'>
+<center>
+<br>
+<table border=0 class='login'>
+<tr><td class='label'>
+Username:</td>
+<td class='in'><div id='user'>[logged out]</div></td></tr>
+<tr><td class='label'>
+Balance:</td>
+<td class='in'><div id='balance'></div></td></tr>
+<tr><td class='label'>
+Last Purchase:</td>
+<td class='in'><div id='purchase' style='max-width:400px'></div></td></tr>
+<tr>
+<td colspan=2 class='error' id='result'>
+</td>
+</tr>
+<tr>
+<td class='submit'><button type=button onclick='login()'>Login</button></td>
+<td class='submit'><button type=button onclick='logout()'>Logout</button></td>
+</tr>
+</table>
+</center>
+
+</div>
+
+<div id='login' style='display:none;'>
+<center>
+<br>
+Please sign-in to continue!<br>
+<table border=0 class='login'>
+<tr><td class='label'>
+Username:</td><td class='in'>
+<input name='username' id='username'></td></tr>
+
+<tr><td class='label'>
+Password:</td><td class='in'>
+<input name='password' type='password' id='password'></td></tr>
+<tr>
+<td colspan=2 class='error' id='result'>
+</td>
+</tr>
+<tr>
+<td colspan=2 class='submit'><button type=button onclick='do_login()'>Login</button></td>
+</tr>
+</table>
+</center>
+</div>
+
+
+<div id='login2' style='display: none;'>
+<center>
+<br>
+Logging in requires a captcha!<br>
+<table border=0 class='login'>
+<tr><td class='label'>
+</td><td class='in'>
+<div id='captchaouter'> </div>
+<tr><td class='label'>
+Captcha:</td><td class='in'>
+<input name='captcah' id='captcha'></td></tr>
+<tr>
+<td colspan=2 class='error' id='result'>
+</td>
+</tr>
+<tr>
+<td colspan=2 class='submit'><button type=button onclick='verify()' id='verify'>Verify</button></td>
+</tr>
+</table>
+</center>
+</div>
+
+
+<div id='signup' style='display: none;'>
+<center>
+<br>
+Welcome new user! Sign up for 100 free credits!<br>
+<table border=0 class='login'>
+<tr><td class='label'>
+Username:</td><td class='in'>
+<input name='newusername' id='newusername'></td></tr>
+
+<tr><td class='label'>
+Password:</td><td class='in'>
+<input name='newpassword' type='password' id='newpassword'></td></tr>
+<tr>
+<td colspan=2 class='error' id='result'>
+</td>
+</tr>
+<tr>
+<td colspan=2 class='submit'><button type=button onclick='do_signup()'>Signup</button></td>
+</tr>
+</table>
+</center>
+</div>
+
+
+<div id='transfer' style='display: none;'>
+<center>
+<br>
+Transfer your credits to another user<br>
+<table border=0 class='login'>
+<tr><td class='label'>
+Recipient:</td><td class='in'>
+<input name='recipient' id='recipient'></td></tr>
+
+<tr><td class='label'>
+Amount:</td><td class='in'>
+<select id='amount'>
+<option value='10'>10</option>
+<option value='25'>25</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<tr>
+<td colspan=2 class='error' id='result'>
+</td>
+</tr>
+<tr>
+<td colspan=2 class='submit'><button type=button onclick='do_transfer()'>Transfer</button></td>
+</tr>
+</table>
+</center>
+</div>
+
+
+<div id='buy' style='display: none;'>
+
+<center>
+<table border=10 cellpadding=10 cellspacing=10>
+<tr>
+<td><b>ITEM</b></td><td><b>Description</b></td><td><b>Cost</b></td><td><b>Buy!</b></td></tr>
+
+<tr><td>Fortune</td><td>A random, hopefully interesting, adage.</td><td>12 Credits</td>
+<td><button type=button onclick='do_buy("fortune")'>BUY</button></td></tr>
+
+<tr><td>Hint</td><td>A random hint to solve the challenge.</td><td>101 Credits</td>
+<td><button type=button onclick='do_buy("hint")'>BUY</button></td></tr>
+
+<tr><td>Flag</td><td>The solution to the challenge.</td><td>100,000 Credits</td>
+<td><button type=button onclick='do_buy("flag")'>BUY</button></td></tr>
+
+</center>
+</table>
+
+</div>
+
+
+</td></tr></table>
+</center>
+<div class='tiny'>
+(c) 2018 BUYBUYBUY, This is a CTF challenge. Hack away.
+</body>
+</html>

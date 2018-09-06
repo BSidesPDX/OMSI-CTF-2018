@@ -19,3 +19,7 @@ tmi:
     ports:
         - 5000:5000
 
+buynow:
+    build: ./web/200-buynow/src
+    ports:
+        - 5001:5001
