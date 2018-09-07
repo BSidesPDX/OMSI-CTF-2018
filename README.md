@@ -18,8 +18,8 @@ This is the development environment for the 2018 OMSI Maker Faire CTF Event. We 
 | bfpl | pwn | 200 | 10002 |
 | sgnirts  re | 100 | NA |
 | sup3rs3ri4l | re | 200 | NA |
-| | web | 100 | |
-| | web | 200 | |
+| tmi | web | 100 | 5000 |
+| buynow | web | 200 | 5001 |
 
 All flags are in `/flag`
 
