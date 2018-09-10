@@ -10,7 +10,7 @@ Challenges built by: [TTimzen](https://twitter.com/TTimzen) & [pwnpnw](https://t
 |----------------|----------|--------|------|
 | bfbo | pwn | 100 | 10001 |
 | bfpl | pwn | 200 | 10002 |
-| sgnirts  re | 100 | NA |
+| sgnirts  | re | 100 | NA |
 | sup3rs3ri4l | re | 200 | NA |
 | tmi | web | 100 | 5000 |
 | buynow | web | 200 | 5001 |
