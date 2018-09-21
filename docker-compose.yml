@@ -14,6 +14,8 @@ bfpl:
     security_opt:
         - seccomp:unconfined
 
+# Web
+
 tmi:
     build: ./web/100-tmi/src
     ports:
